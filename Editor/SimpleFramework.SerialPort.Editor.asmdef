@@ -1,0 +1,17 @@
+{
+    "name": "SimpleFramework.SerialPort.Editor",
+    "references": [
+        "GUID:6b53d13ac658a28478eb2ada3b424684"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
