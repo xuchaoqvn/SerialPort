@@ -10,5 +10,9 @@
   ],
   "author": {
     "name": "鱼"
+  },
+    "repository": {
+    "url": "https://github.com/xuchaoqvn/SerialPort.git",
+    "type": "git"
   }
 }
