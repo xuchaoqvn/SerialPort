@@ -60,6 +60,14 @@ namespace SimpleFramework.SerialPort
         }
 
         /// <summary>
+        /// 获取当每次读取数据的长度不确定时，用于读取数据的间隔
+        /// </summary>
+        float ReadInterval
+        {
+            get;
+        }
+
+        /// <summary>
         /// 获取是否打开串口
         /// </summary>
         bool IsOpen

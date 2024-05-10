@@ -126,6 +126,11 @@ namespace SimpleFramework.SerialPort
         public int ReadLength => this.m_SerialPortManager.ReadLength;
 
         /// <summary>
+        /// 获取当每次读取数据的长度不确定时，用于读取数据的间隔
+        /// </summary>
+        public float ReadInterval => this.m_SerialPortManager.ReadInterval;
+
+        /// <summary>
         /// 获取是否打开串口
         /// </summary>
         public bool IsOpen => this.m_SerialPortManager.IsOpen;
@@ -165,7 +170,7 @@ namespace SimpleFramework.SerialPort
 
         private void Update()
         {
-            if (!this.m_SerialPortManager.IsOpen)
+            if (this.m_SerialPortManager.IsOpen)
                 this.m_SerialPortManager.Update(Time.deltaTime, Time.unscaledDeltaTime);
         }
 
@@ -191,6 +196,25 @@ namespace SimpleFramework.SerialPort
         /// </summary>
         public void Initialize() => this.m_SerialPortManager.Initialize(this.m_PortName, this.m_BaudRate, this.m_Parity, this.m_DataBits, this.m_StopBits,
                                     this.m_ReadLength, this.m_ReadInterval, this.m_ReadTimeout, this.m_WriteTimeout, this.m_Encoding);
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public void Initialize(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits, int readLength, float readInterval, int readTimeout, int writeTimeout)
+        {
+            this.m_PortName = portName;
+            this.m_BaudRate = baudRate;
+            this.m_Parity = parity;
+            this.m_DataBits = dataBits;
+            this.m_StopBits = stopBits;
+            this.m_ReadLength = readLength;
+            this.m_ReadInterval = readInterval;
+            this.m_ReadTimeout = readTimeout;
+            this.m_WriteTimeout = writeTimeout;
+
+            this.m_SerialPortManager.Initialize(this.m_PortName, this.m_BaudRate, this.m_Parity, this.m_DataBits, this.m_StopBits,
+                                    this.m_ReadLength, this.m_ReadInterval, this.m_ReadTimeout, this.m_WriteTimeout, this.m_Encoding);
+        }
 
         /// <summary>
         /// 打开串口

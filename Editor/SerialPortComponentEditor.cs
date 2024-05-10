@@ -102,7 +102,40 @@ namespace SimpleFramework.SerialPort.Editor
         {
             this.serializedObject.Update();
 
-            //this.DrawMarkItemBaseProperty();
+            if (EditorApplication.isPlaying)
+            {
+                if (!this.m_SerialPortComponent.IsOpen)
+                    this.DrawNoOpenGUI();
+                else
+                    this.DrawOpenGUI();
+            }
+            else
+                this.DrawNoOpenGUI();
+
+            this.serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawOpenGUI()
+        {
+            EditorGUILayout.LabelField($"COM口：{this.m_SerialPortComponent.PortName}");
+            EditorGUILayout.LabelField($"波特率：{this.m_SerialPortComponent.BaudRate}");
+            EditorGUILayout.LabelField($"奇偶校验：{this.m_SerialPortComponent.Parity}");
+            EditorGUILayout.LabelField($"数据位：{this.m_SerialPortComponent.DataBits}");
+            EditorGUILayout.LabelField($"停止位：{this.m_SerialPortComponent.StopBits}");
+            //接收的数据长度不确定
+            if (this.m_SerialPortComponent.ReadLength == -1)
+                EditorGUILayout.LabelField($"读取读取数据的间隔：{this.m_SerialPortComponent.ReadInterval}");
+            //接收的数据长度确定
+            else
+                EditorGUILayout.LabelField($"每次读取数据的长度：{this.m_SerialPortComponent.ReadLength}");
+            EditorGUILayout.LabelField($"读取超时时长：{this.m_SerialPortComponent.ReadTimeout}");
+            EditorGUILayout.LabelField($"写入超时时长：{this.m_SerialPortComponent.WritTtimeout}");
+            EditorGUILayout.LabelField($"发送的数据量：{this.m_SerialPortComponent.SendDataCount}");
+            EditorGUILayout.LabelField($"接收的数据量：{this.m_SerialPortComponent.ReceivedDataCount}");
+        }
+
+        private void DrawNoOpenGUI()
+        {
             EditorGUILayout.PropertyField(this.m_PortName, new GUIContent("COM口"));
             EditorGUILayout.PropertyField(this.m_BaudRate, new GUIContent("波特率"));
             EditorGUILayout.PropertyField(this.m_Parity, new GUIContent("奇偶校验"));
@@ -115,8 +148,6 @@ namespace SimpleFramework.SerialPort.Editor
             EditorGUILayout.PropertyField(this.m_SerialPortOpenCloseHandler, new GUIContent("打开串口和关闭串口处理类"));
             EditorGUILayout.PropertyField(this.m_ReceiveDataHandler, new GUIContent("串口接受数据处理类"));
             EditorGUILayout.PropertyField(this.m_SerialPortErrorHandler, new GUIContent("串口错误处理类"));
-
-            this.serializedObject.ApplyModifiedProperties();
         }
 
         private string[] GetReceiveDataHandler()
