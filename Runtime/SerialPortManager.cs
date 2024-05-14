@@ -346,7 +346,7 @@ namespace SimpleFramework.SerialPort
             if (this.m_ReceiveDatas.Count < 0)
                 return;
 
-            if (this.m_ReceiveDatas.TryDequeue(out byte[] data))
+            while (this.m_ReceiveDatas.TryDequeue(out byte[] data))
             {
                 SerialPortReceiveDataEventArgs serialPortReceiveDataEventArgs = new SerialPortReceiveDataEventArgs();
                 serialPortReceiveDataEventArgs.ReceiveData = data;
